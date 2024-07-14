@@ -1,4 +1,4 @@
-package com.mindvalley.mindvalleyapp.ui.theme
+package com.mindvalley.mindvalleyapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
