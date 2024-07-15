@@ -5,7 +5,7 @@ data class Channel(
     val iconAsset: IconAsset?,
     val latestMedia: List<LatestMedia>?,
     val mediaCount: Int?,
-    val series: List<Sery>?,
+    val seriesList: List<Series>?,
     val slug: String?,
     val title: String?
 )

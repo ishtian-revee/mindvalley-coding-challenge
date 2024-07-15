@@ -10,7 +10,7 @@ data class ChannelEntity(
     val id: String?,
     val latestMedia: List<LatestMediaEntity>?,
     val mediaCount: Int?,
-    val series: List<SeryEntity>?,
+    val series: List<SeriesEntity>?,
     val slug: String?,
     @PrimaryKey val title: String = ""
 )

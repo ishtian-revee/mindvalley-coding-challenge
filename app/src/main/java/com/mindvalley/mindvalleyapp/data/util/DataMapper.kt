@@ -10,7 +10,7 @@ import com.mindvalley.mindvalleyapp.domain.model.CoverAsset
 import com.mindvalley.mindvalleyapp.domain.model.IconAsset
 import com.mindvalley.mindvalleyapp.domain.model.LatestMedia
 import com.mindvalley.mindvalleyapp.domain.model.Media
-import com.mindvalley.mindvalleyapp.domain.model.Sery
+import com.mindvalley.mindvalleyapp.domain.model.Series
 
 fun List<MediaEntity>.toMedia(): List<Media> {
     return this.map { entry ->
@@ -26,7 +26,7 @@ fun List<MediaEntity>.toMedia(): List<Media> {
 fun List<ChannelEntity>.toChannel(): List<Channel> {
     return this.map { entry ->
         val latestMedia: MutableList<LatestMedia> = ArrayList()
-        val seryList: MutableList<Sery> = ArrayList()
+        val seriesList: MutableList<Series> = ArrayList()
 
         entry.latestMedia?.forEach {
             latestMedia.add(
@@ -38,8 +38,8 @@ fun List<ChannelEntity>.toChannel(): List<Channel> {
             )
         }
         entry.series?.forEach {
-            seryList.add(
-                Sery(
+            seriesList.add(
+                Series(
                     coverAsset = CoverAsset(it.coverAsset?.url),
                     id = it.id,
                     title = it.title
@@ -55,7 +55,7 @@ fun List<ChannelEntity>.toChannel(): List<Channel> {
             ),
             latestMedia = latestMedia,
             mediaCount = entry.mediaCount,
-            series = seryList,
+            seriesList = seriesList,
             slug = entry.slug,
             title = entry.title
         )
