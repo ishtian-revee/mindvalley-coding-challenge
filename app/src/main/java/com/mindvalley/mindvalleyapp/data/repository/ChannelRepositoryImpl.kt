@@ -1,7 +1,7 @@
 package com.mindvalley.mindvalleyapp.data.repository
 
 import com.mindvalley.mindvalleyapp.common.Resource
-import com.mindvalley.mindvalleyapp.data.local.AppDatabase
+import com.mindvalley.mindvalleyapp.data.local.room.AppDatabase
 import com.mindvalley.mindvalleyapp.data.remote.MindvalleyApi
 import com.mindvalley.mindvalleyapp.domain.model.Category
 import com.mindvalley.mindvalleyapp.domain.model.Channel

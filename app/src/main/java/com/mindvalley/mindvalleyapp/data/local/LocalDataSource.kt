@@ -1,5 +1,6 @@
 package com.mindvalley.mindvalleyapp.data.local
 
+import com.mindvalley.mindvalleyapp.data.local.room.ChannelDao
 import com.mindvalley.mindvalleyapp.data.model.CategoryEntity
 import com.mindvalley.mindvalleyapp.data.model.ChannelEntity
 import com.mindvalley.mindvalleyapp.data.model.MediaEntity

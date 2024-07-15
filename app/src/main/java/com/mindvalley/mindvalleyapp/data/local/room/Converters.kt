@@ -1,4 +1,4 @@
-package com.mindvalley.mindvalleyapp.data.local
+package com.mindvalley.mindvalleyapp.data.local.room
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
