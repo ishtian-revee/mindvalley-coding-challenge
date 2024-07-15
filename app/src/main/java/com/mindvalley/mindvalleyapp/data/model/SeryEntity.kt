@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Sery(
-    val coverAsset: CoverAsset,
+data class SeryEntity(
+    val coverAsset: CoverAssetEntity?,
     @PrimaryKey val id: String = "",
-    val title: String
+    val title: String?
 )

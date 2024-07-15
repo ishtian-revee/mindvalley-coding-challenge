@@ -4,8 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class LatestMedia(
-    val coverAsset: CoverAsset,
-    @PrimaryKey val title: String,
-    val type: String
+data class IconAssetEntity(
+    val thumbnailUrl: String?,
+    @PrimaryKey val url: String = ""
 )

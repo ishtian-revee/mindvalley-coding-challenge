@@ -1,5 +1,5 @@
 package com.mindvalley.mindvalleyapp.domain.model
 
 data class CoverAsset(
-    val url: String
+    val url: String?
 )

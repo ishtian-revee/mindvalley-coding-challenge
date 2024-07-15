@@ -4,6 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class CoverAsset(
-    @PrimaryKey val url: String
+data class CoverAssetEntity(
+    @PrimaryKey val url: String = ""
 )
