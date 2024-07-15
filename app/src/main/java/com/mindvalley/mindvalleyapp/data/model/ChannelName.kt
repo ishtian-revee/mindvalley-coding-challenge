@@ -5,6 +5,5 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ChannelName(
-    val title: String,
-    @PrimaryKey val id: Int? = null
+    @PrimaryKey val title: String
 )
