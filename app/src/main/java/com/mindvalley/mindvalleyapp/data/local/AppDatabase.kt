@@ -13,6 +13,6 @@ import com.mindvalley.mindvalleyapp.data.model.MediaEntity
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-abstract class MindvalleyDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun mindvalleyDao(): MindvalleyDao
 }
