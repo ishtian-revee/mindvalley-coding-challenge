@@ -10,7 +10,7 @@ import com.mindvalley.mindvalleyapp.data.model.MediaEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MindvalleyDao {
+interface ChannelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewEpisodes(episodes: List<MediaEntity>): Array<Long>

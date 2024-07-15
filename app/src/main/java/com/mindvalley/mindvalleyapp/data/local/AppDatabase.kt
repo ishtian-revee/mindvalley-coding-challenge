@@ -14,5 +14,5 @@ import com.mindvalley.mindvalleyapp.data.model.MediaEntity
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun mindvalleyDao(): MindvalleyDao
+    abstract fun channelDao(): ChannelDao
 }
