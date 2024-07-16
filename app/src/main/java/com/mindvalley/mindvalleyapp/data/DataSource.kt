@@ -15,7 +15,7 @@ abstract class DataSource<Result, Response> {
 
     protected abstract suspend fun createCall(): Flow<Resource<Response>>
 
-    protected abstract suspend fun savaData(data: Response?)
+    protected abstract suspend fun savaData(data: Response)
 
     private var result: Flow<Resource<Result>> = flow {
         if (canCall()) {
@@ -25,7 +25,7 @@ abstract class DataSource<Result, Response> {
                 }
 
                 is Resource.Success -> {
-                    savaData(apiResponse.data)
+                    apiResponse.data?.let { savaData(it) }
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
 
