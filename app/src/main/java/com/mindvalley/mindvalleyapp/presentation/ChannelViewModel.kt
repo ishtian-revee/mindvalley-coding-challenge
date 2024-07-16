@@ -34,7 +34,7 @@ class ChannelViewModel @Inject constructor(
     private val _categoryStateFlow = MutableStateFlow<Resource<List<Category>>>(Resource.Loading())
     val categoryStateFlow = _categoryStateFlow.asStateFlow()
 
-    private fun getAllData() {
+    fun getAllData() {
         viewModelScope.launch {
             supervisorScope {
                 launch {
