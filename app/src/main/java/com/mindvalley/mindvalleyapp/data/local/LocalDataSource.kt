@@ -5,8 +5,9 @@ import com.mindvalley.mindvalleyapp.data.model.CategoryEntity
 import com.mindvalley.mindvalleyapp.data.model.ChannelEntity
 import com.mindvalley.mindvalleyapp.data.model.MediaEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class LocalDataSource(
+class LocalDataSource @Inject constructor(
     private val channelDao: ChannelDao
 ) {
     fun getNewEpisodes(): Flow<List<MediaEntity>> = channelDao.getNewEpisodes()
