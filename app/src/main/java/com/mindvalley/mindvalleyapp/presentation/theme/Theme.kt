@@ -1,4 +1,4 @@
-package com.mindvalley.mindvalleyapp.presentation.ui.theme
+package com.mindvalley.mindvalleyapp.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
