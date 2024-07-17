@@ -101,6 +101,10 @@ dependencies {
 
     // FLow layout
     implementation(libs.accompanist.flowlayout)
+
+    // Swipe to refresh
+    implementation(libs.accompanist.swiperefresh)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
 
 // Allow references to generated code

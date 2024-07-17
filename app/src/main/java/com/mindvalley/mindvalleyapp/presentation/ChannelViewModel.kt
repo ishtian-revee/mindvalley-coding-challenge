@@ -34,7 +34,13 @@ class ChannelViewModel @Inject constructor(
     private val _categoryStateFlow = MutableStateFlow<Resource<List<Category>>>(Resource.Loading())
     val categoryStateFlow = _categoryStateFlow.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
+    private var apiCalls = 0
+
     fun getAllData() {
+        _isLoading.value = true
         viewModelScope.launch {
             supervisorScope {
                 launch {
@@ -44,6 +50,7 @@ class ChannelViewModel @Inject constructor(
                             _newEpisodeStateFlow.value = Resource.Error(it.message ?: "")
                         }.collect {
                             _newEpisodeStateFlow.value = it
+                            updateLoadingState()
                         }
                 }
 
@@ -54,6 +61,7 @@ class ChannelViewModel @Inject constructor(
                             _channelStateFlow.value = Resource.Error(it.message ?: "")
                         }.collect {
                             _channelStateFlow.value = it
+                            updateLoadingState()
                         }
                 }
 
@@ -64,9 +72,18 @@ class ChannelViewModel @Inject constructor(
                             _categoryStateFlow.value = Resource.Error(it.message ?: "")
                         }.collect {
                             _categoryStateFlow.value = it
+                            updateLoadingState()
                         }
                 }
             }
+        }
+    }
+
+    private fun updateLoadingState() {
+        apiCalls++
+        if (apiCalls == 3) {
+            _isLoading.value = false
+            apiCalls = 0
         }
     }
 }
