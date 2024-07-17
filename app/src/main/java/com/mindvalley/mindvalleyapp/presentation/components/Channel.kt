@@ -43,13 +43,13 @@ fun Channel(modifier: Modifier = Modifier, channel: Channel) {
         channel.seriesList?.let {
             var rowIndex = 0
             val series = channel.seriesList
-            val columnCount = if (series.count() % MAX_ITEM_PER_ROW == 0) {
+            val seriesColumn = if (series.count() % MAX_ITEM_PER_ROW == 0) {
                 series.count() / MAX_ITEM_PER_ROW
             } else {
                 series.count() / MAX_ITEM_PER_ROW + 1
             }
 
-            repeat(columnCount) {
+            repeat(seriesColumn) {
                 val startIndex = rowIndex * MAX_ITEM_PER_ROW
                 val endIndex =
                     if ((rowIndex * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW > series.count()) {
@@ -75,13 +75,13 @@ fun Channel(modifier: Modifier = Modifier, channel: Channel) {
         var rowIndex = 0
         val latestMedia = channel.latestMedia
         latestMedia?.let {
-            val columnCount = if (latestMedia.count() % MAX_ITEM_PER_ROW == 0) {
+            val courseColumn = if (latestMedia.count() % MAX_ITEM_PER_ROW == 0) {
                 latestMedia.count() / MAX_ITEM_PER_ROW
             } else {
                 latestMedia.count() / MAX_ITEM_PER_ROW + 1
             }
 
-            repeat(columnCount) {
+            repeat(courseColumn) {
                 val startIndex = rowIndex * MAX_ITEM_PER_ROW
                 val endIndex =
                     if ((rowIndex * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW > latestMedia.count()) {

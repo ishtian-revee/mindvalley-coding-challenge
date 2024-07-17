@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,15 +18,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.R
+import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.common.Resource
 import com.mindvalley.mindvalleyapp.domain.model.Category
 import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.components.Category
 import com.mindvalley.mindvalleyapp.presentation.components.Channel
-import com.mindvalley.mindvalleyapp.presentation.components.NewEpisodes
+import com.mindvalley.mindvalleyapp.presentation.components.NewEpisode
+import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.LightGrey
+import com.mindvalley.mindvalleyapp.presentation.util.divider
 import timber.log.Timber
 
 @Composable
@@ -42,6 +46,26 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
             color = LightGrey
         )
 
+        // fetching new episode data
+        var episodeList by rememberSaveable {
+            mutableStateOf(listOf<Media>())
+        }
+        val episodes by viewModel.newEpisodeStateFlow.collectAsState()
+        when (episodes) {
+            is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading episodes")
+
+            is Resource.Success -> episodeList = (episodes as Resource.Success<List<Media>>).data!!
+
+            is Resource.Error -> Timber.e((episodes as Resource.Error).message)
+        }
+
+        val episodeColumn = if (episodeList.count() % MAX_ITEM_PER_ROW == 0) {
+            episodeList.count() / MAX_ITEM_PER_ROW
+        } else {
+            episodeList.count() / MAX_ITEM_PER_ROW + 1
+        }
+
+        // fetching channel data
         var channelList by rememberSaveable {
             mutableStateOf(listOf<Channel>())
         }
@@ -53,6 +77,20 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                 (channels as Resource.Success<List<Channel>>).data!!
 
             is Resource.Error -> Timber.e((channels as Resource.Error).message)
+        }
+
+        // fetching category data
+        var categoryList by rememberSaveable {
+            mutableStateOf(listOf<Category>())
+        }
+        val categories by viewModel.categoryStateFlow.collectAsState()
+        when (categories) {
+            is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading categories")
+
+            is Resource.Success -> categoryList =
+                (categories as Resource.Success<List<Category>>).data!!
+
+            is Resource.Error -> Timber.e((categories as Resource.Error).message)
         }
 
         LazyColumn(
@@ -67,7 +105,14 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                     style = Typography.headlineMedium,
                     color = Grey
                 )
-                PopulateEpisodes(viewModel)
+            }
+
+            items(episodeColumn) { index ->
+                NewEpisode(episodes = episodeList, index = index)
+            }
+
+            item {
+                HorizontalDivider(modifier = divider, color = DarkGrey)
             }
 
             items(channelList.size) { index ->
@@ -77,47 +122,13 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
             item {
                 Text(
                     modifier = modifier
-                        .padding(top = 30.dp, start = 20.dp, end = 20.dp)
-                        .testTag("categoryText"),
+                        .padding(top = 30.dp, start = 20.dp, end = 20.dp),
                     text = stringResource(id = R.string.browse_by_categories),
                     style = Typography.headlineMedium,
                     color = Grey
                 )
-                PopulateCategories(viewModel)
+                Category(categoryList = categoryList)
             }
         }
     }
-}
-
-@Composable
-fun PopulateEpisodes(viewModel: ChannelViewModel) {
-    var episodeList by rememberSaveable {
-        mutableStateOf(listOf<Media>())
-    }
-    val episodes by viewModel.newEpisodeStateFlow.collectAsState()
-    when (episodes) {
-        is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading episodes")
-
-        is Resource.Success -> episodeList = (episodes as Resource.Success<List<Media>>).data!!
-
-        is Resource.Error -> Timber.e((episodes as Resource.Error).message)
-    }
-    NewEpisodes(episodes = episodeList)
-}
-
-@Composable
-fun PopulateCategories(viewModel: ChannelViewModel) {
-    var categoryList by rememberSaveable {
-        mutableStateOf(listOf<Category>())
-    }
-    val categories by viewModel.categoryStateFlow.collectAsState()
-    when (categories) {
-        is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading categories")
-
-        is Resource.Success -> categoryList =
-            (categories as Resource.Success<List<Category>>).data!!
-
-        is Resource.Error -> Timber.e((categories as Resource.Error).message)
-    }
-    Category(categoryList = categoryList)
 }

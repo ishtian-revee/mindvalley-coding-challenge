@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,26 +16,31 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.domain.model.Media
-import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.presentation.theme.White
-import com.mindvalley.mindvalleyapp.presentation.util.divider
 import com.mindvalley.mindvalleyapp.presentation.util.portraitImage
 import java.util.Locale
 
 @Composable
-fun NewEpisodes(modifier: Modifier = Modifier, episodes: List<Media>) {
+fun NewEpisode(modifier: Modifier = Modifier, episodes: List<Media>, index: Int) {
     LazyRow(
         contentPadding = PaddingValues(start = 20.dp)
     ) {
-        itemsIndexed(episodes) { index, episode ->
+        val startIndex = index * MAX_ITEM_PER_ROW
+        val endIndex =
+            if ((index * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW > episodes.count()) {
+                episodes.count()
+            } else {
+                (index * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW
+            }
+        val episodeList = episodes.subList(startIndex, endIndex)
+        itemsIndexed(episodeList) { index, episode ->
             if (index < MAX_ITEM_PER_ROW) {
                 NewEpisodeItem(modifier = modifier, episode)
             }
         }
     }
-    HorizontalDivider(modifier = divider, color = DarkGrey)
 }
 
 @Composable
