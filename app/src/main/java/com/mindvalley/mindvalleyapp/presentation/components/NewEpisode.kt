@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.mindvalley.mindvalleyapp.common.Constants.MAX_ROW_COUNT
+import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
@@ -31,7 +31,7 @@ fun NewEpisodes(modifier: Modifier = Modifier, episodes: List<Media>) {
         contentPadding = PaddingValues(start = 20.dp)
     ) {
         itemsIndexed(episodes) { index, episode ->
-            if (index < MAX_ROW_COUNT) {
+            if (index < MAX_ITEM_PER_ROW) {
                 NewEpisodeItem(modifier = modifier, episode)
             }
         }
