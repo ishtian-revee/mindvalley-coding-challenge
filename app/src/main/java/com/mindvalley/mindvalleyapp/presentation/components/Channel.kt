@@ -24,12 +24,14 @@ import com.mindvalley.mindvalleyapp.R
 import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.LatestMedia
+import com.mindvalley.mindvalleyapp.domain.model.Series
 import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.presentation.theme.White
 import com.mindvalley.mindvalleyapp.presentation.util.divider
 import com.mindvalley.mindvalleyapp.presentation.util.icon
+import com.mindvalley.mindvalleyapp.presentation.util.landscapeImage
 import com.mindvalley.mindvalleyapp.presentation.util.portraitImage
 
 @Composable
@@ -39,7 +41,35 @@ fun Channel(modifier: Modifier = Modifier, channel: Channel) {
 
     if (isSeries) {
         channel.seriesList?.let {
+            var rowIndex = 0
+            val series = channel.seriesList
+            val columnCount = if (series.count() % MAX_ITEM_PER_ROW == 0) {
+                series.count() / MAX_ITEM_PER_ROW
+            } else {
+                series.count() / MAX_ITEM_PER_ROW + 1
+            }
 
+            repeat(columnCount) {
+                val startIndex = rowIndex * MAX_ITEM_PER_ROW
+                val endIndex =
+                    if ((rowIndex * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW > series.count()) {
+                        series.count()
+                    } else {
+                        (rowIndex * MAX_ITEM_PER_ROW) + MAX_ITEM_PER_ROW
+                    }
+
+                val seriesList = series.subList(startIndex, endIndex)
+                LazyRow(
+                    contentPadding = PaddingValues(start = 20.dp)
+                ) {
+                    itemsIndexed(seriesList) { index, series ->
+                        if (index < MAX_ITEM_PER_ROW) {
+                            SeriesItem(modifier = modifier, series)
+                        }
+                    }
+                }
+                rowIndex++
+            }
         }
     } else {
         var rowIndex = 0
@@ -85,7 +115,10 @@ fun ChannelHeaderItem(modifier: Modifier, channel: Channel, isSeries: Boolean) {
         "${channel.mediaCount} episodes"
     }
 
-    Row(modifier = modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp)) {
+    Row(
+        modifier = modifier
+            .padding(top = 20.dp, start = 20.dp, end = 20.dp)
+    ) {
         AsyncImage(
             modifier = icon.clip(CircleShape),
             model = channel.iconAsset?.url,
@@ -118,7 +151,7 @@ fun ChannelHeaderItem(modifier: Modifier, channel: Channel, isSeries: Boolean) {
 fun CourseItem(modifier: Modifier, media: LatestMedia) {
     Column(
         modifier = modifier
-            .padding(top = 20.dp, end = 10.dp)
+            .padding(top = 20.dp, end = 20.dp)
             .wrapContentHeight()
     ) {
         AsyncImage(
@@ -141,6 +174,27 @@ fun CourseItem(modifier: Modifier, media: LatestMedia) {
 }
 
 @Composable
-fun SeriesItem() {
+fun SeriesItem(modifier: Modifier, series: Series) {
+    Column(
+        modifier = modifier
+            .padding(top = 20.dp, end = 20.dp)
+            .wrapContentHeight()
+    ) {
+        AsyncImage(
+            modifier = landscapeImage.align(Alignment.CenterHorizontally),
+            model = series.coverAsset?.url,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            error = painterResource(id = R.drawable.ic_mindvalley)
+        )
 
+        Text(
+            modifier = modifier
+                .width(320.dp)
+                .padding(top = 10.dp, start = 4.dp),
+            text = series.title ?: "-",
+            style = Typography.titleMedium,
+            color = White
+        )
+    }
 }
