@@ -98,6 +98,9 @@ dependencies {
 
     // Coil image
     implementation(libs.coil)
+
+    // FLow layout
+    implementation(libs.accompanist.flowlayout)
 }
 
 // Allow references to generated code
