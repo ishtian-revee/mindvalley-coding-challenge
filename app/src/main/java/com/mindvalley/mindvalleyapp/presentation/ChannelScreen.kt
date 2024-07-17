@@ -19,8 +19,10 @@ import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.R
 import com.mindvalley.mindvalleyapp.common.Resource
 import com.mindvalley.mindvalleyapp.domain.model.Category
+import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.components.Category
+import com.mindvalley.mindvalleyapp.presentation.components.Channel
 import com.mindvalley.mindvalleyapp.presentation.components.NewEpisodes
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.LightGrey
@@ -40,6 +42,19 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
             color = LightGrey
         )
 
+        var channelList by rememberSaveable {
+            mutableStateOf(listOf<Channel>())
+        }
+        val channels by viewModel.channelStateFlow.collectAsState()
+        when (channels) {
+            is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading channels")
+
+            is Resource.Success -> channelList =
+                (channels as Resource.Success<List<Channel>>).data!!
+
+            is Resource.Error -> Timber.e((channels as Resource.Error).message)
+        }
+
         LazyColumn(
             modifier = modifier
                 .padding(top = 8.dp)
@@ -53,6 +68,10 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                     color = Grey
                 )
                 PopulateEpisodes(viewModel)
+            }
+
+            items(channelList.size) { index ->
+                Channel(channel = channelList[index])
             }
 
             item {
