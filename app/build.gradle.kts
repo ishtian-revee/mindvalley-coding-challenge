@@ -113,6 +113,9 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test.v151)
     testImplementation(libs.truth)
     testImplementation(libs.mockwebserver)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.androidx.core.testing)
 //    testImplementation(libs.mockk)
     debugImplementation(libs.ui.test.manifest)
 
