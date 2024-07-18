@@ -83,11 +83,11 @@ class ChannelRepositoryImplTest {
                     name = c.toString()
                 )
             )
-
-            episodesResponse = EpisodeResponse(EpisodeData(episodeEntities))
-            channelResponse = ChannelResponse(ChannelData(channelEntities))
-            categoryResponse = CategoryResponse(CategoryData(categoryEntities))
         }
+
+        episodesResponse = EpisodeResponse(EpisodeData(episodeEntities))
+        channelResponse = ChannelResponse(ChannelData(channelEntities))
+        categoryResponse = CategoryResponse(CategoryData(categoryEntities))
     }
 
     @Test
