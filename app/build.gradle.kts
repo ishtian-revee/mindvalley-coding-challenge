@@ -61,7 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
+//    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -105,6 +105,29 @@ dependencies {
     // Swipe to refresh
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Local unit tests
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test.v151)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockwebserver)
+//    testImplementation(libs.mockk)
+    debugImplementation(libs.ui.test.manifest)
+
+    // Instrumentation tests
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler.v237)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.core.testing.v210)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.junit.v113)
+    androidTestImplementation(libs.core.ktx)
+    androidTestImplementation(libs.mockwebserver)
+//    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.androidx.runner)
 }
 
 // Allow references to generated code
