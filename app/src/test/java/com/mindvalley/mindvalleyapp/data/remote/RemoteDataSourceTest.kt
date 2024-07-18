@@ -42,12 +42,12 @@ class RemoteDataSourceTest {
         remoteDataSource = RemoteDataSource(apiService)
 
         // new episodes, channel and category test data
-        val mediaEntityData = mutableListOf<MediaEntity>()
-        val channelEntityData = mutableListOf<ChannelEntity>()
-        val categoryEntityData = mutableListOf<CategoryEntity>()
+        val episodeData = mutableListOf<MediaEntity>()
+        val channelData = mutableListOf<ChannelEntity>()
+        val categoryData = mutableListOf<CategoryEntity>()
 
         ('a'..'z').forEachIndexed { i, c ->
-            mediaEntityData.add(
+            episodeData.add(
                 MediaEntity(
                     channel = ChannelNameEntity(title = c.toString()),
                     coverAsset = null,
@@ -56,7 +56,7 @@ class RemoteDataSourceTest {
                 )
             )
 
-            channelEntityData.add(
+            channelData.add(
                 ChannelEntity(
                     coverAsset = null,
                     iconAsset = null,
@@ -69,16 +69,16 @@ class RemoteDataSourceTest {
                 )
             )
 
-            categoryEntityData.add(
+            categoryData.add(
                 CategoryEntity(
                     name = c.toString()
                 )
             )
         }
 
-        episodesResponse = EpisodeResponse(EpisodeData(mediaEntityData))
-        channelResponse = ChannelResponse(ChannelData(channelEntityData))
-        categoryResponse = CategoryResponse(CategoryData(categoryEntityData))
+        episodesResponse = EpisodeResponse(EpisodeData(episodeData))
+        channelResponse = ChannelResponse(ChannelData(channelData))
+        categoryResponse = CategoryResponse(CategoryData(categoryData))
     }
 
     @Test
