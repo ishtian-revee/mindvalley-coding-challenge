@@ -18,15 +18,24 @@ interface ChannelDao {
     @Query("SELECT * FROM mediaEntity")
     fun getNewEpisodes(): Flow<List<MediaEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCategories(categories: List<CategoryEntity>): Array<Long>
-
-    @Query("SELECT * FROM categoryEntity")
-    fun getCategories(): Flow<List<CategoryEntity>>
+    @Query("DELETE FROM mediaEntity")
+    fun deleteAllEpisodes()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertChannels(channels: List<ChannelEntity>): Array<Long>
 
     @Query("SELECT * FROM channelEntity")
     fun getChannels(): Flow<List<ChannelEntity>>
+
+    @Query("DELETE FROM channelEntity")
+    fun deleteAllChannels()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategories(categories: List<CategoryEntity>): Array<Long>
+
+    @Query("SELECT * FROM categoryEntity")
+    fun getCategories(): Flow<List<CategoryEntity>>
+
+    @Query("DELETE FROM categoryEntity")
+    fun deleteAllCategories()
 }

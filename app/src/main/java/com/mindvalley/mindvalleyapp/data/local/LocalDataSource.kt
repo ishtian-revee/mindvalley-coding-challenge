@@ -14,14 +14,17 @@ class LocalDataSource @Inject constructor(
     suspend fun insertNewEpisodes(episodes: List<MediaEntity>): Array<Long> {
         return channelDao.insertNewEpisodes(episodes)
     }
+    fun deleteAllEpisodes() = channelDao.deleteAllEpisodes()
 
     fun getChannels(): Flow<List<ChannelEntity>> = channelDao.getChannels()
     suspend fun insertChannels(channels: List<ChannelEntity>): Array<Long> {
         return channelDao.insertChannels(channels)
     }
+    fun deleteAllChannels() = channelDao.deleteAllChannels()
 
     fun getCategories(): Flow<List<CategoryEntity>> = channelDao.getCategories()
     suspend fun insertCategories(categories: List<CategoryEntity>): Array<Long> {
         return channelDao.insertCategories(categories)
     }
+    fun deleteAllCategories() = channelDao.deleteAllCategories()
 }

@@ -45,6 +45,7 @@ class ChannelRepositoryImpl @Inject constructor(
             override suspend fun savaData(data: EpisodeResponse) {
                 data.data?.let {
                     it.media?.let { media ->
+                        localDataSource.deleteAllEpisodes()
                         localDataSource.insertNewEpisodes(media)
                     }
                 }
@@ -68,6 +69,7 @@ class ChannelRepositoryImpl @Inject constructor(
             override suspend fun savaData(data: ChannelResponse) {
                 data.data?.let {
                     it.channels?.let { channel ->
+                        localDataSource.deleteAllChannels()
                         localDataSource.insertChannels(channel)
                     }
                 }
@@ -91,6 +93,7 @@ class ChannelRepositoryImpl @Inject constructor(
             override suspend fun savaData(data: CategoryResponse) {
                 data.data?.let {
                     it.categories?.let { category ->
+                        localDataSource.deleteAllCategories()
                         localDataSource.insertCategories(category)
                     }
                 }
