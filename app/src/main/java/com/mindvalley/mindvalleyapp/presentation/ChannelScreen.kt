@@ -26,6 +26,7 @@ import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.components.Category
 import com.mindvalley.mindvalleyapp.presentation.components.Channel
+import com.mindvalley.mindvalleyapp.presentation.components.ChannelShimmer
 import com.mindvalley.mindvalleyapp.presentation.components.NewEpisode
 import com.mindvalley.mindvalleyapp.presentation.components.NewEpisodeShimmer
 import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
@@ -127,6 +128,16 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
 
                 item {
                     HorizontalDivider(modifier = divider, color = DarkGrey)
+                }
+
+                if (isLoading) {
+                    item {
+                        ChannelShimmer(modifier = modifier)
+                    }
+                } else {
+                    items(channelList.size) { index ->
+                        Channel(channel = channelList[index])
+                    }
                 }
 
                 items(channelList.size) { index ->

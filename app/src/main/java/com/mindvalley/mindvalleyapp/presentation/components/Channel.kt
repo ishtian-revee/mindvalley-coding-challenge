@@ -1,15 +1,20 @@
 package com.mindvalley.mindvalleyapp.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +38,7 @@ import com.mindvalley.mindvalleyapp.presentation.util.divider
 import com.mindvalley.mindvalleyapp.presentation.util.icon
 import com.mindvalley.mindvalleyapp.presentation.util.landscapeImage
 import com.mindvalley.mindvalleyapp.presentation.util.portraitImage
+import com.mindvalley.mindvalleyapp.presentation.util.showShimmerEffect
 
 @Composable
 fun Channel(modifier: Modifier = Modifier, channel: Channel) {
@@ -196,5 +202,65 @@ fun SeriesItem(modifier: Modifier, series: Series) {
             style = Typography.titleMedium,
             color = White
         )
+    }
+}
+
+@Composable
+fun ChannelShimmer(modifier: Modifier) {
+    Column(
+        modifier = modifier
+            .padding(top = 16.dp)
+    ) {
+        Row(
+            modifier = modifier
+                .padding(start = 20.dp)
+        ) {
+            Box(
+                modifier = icon
+                    .clip(CircleShape)
+                    .showShimmerEffect()
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Column {
+                Spacer(modifier = Modifier.height(10.dp))
+                Box(
+                    modifier = Modifier
+                        .size(width = 150.dp, height = 10.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .showShimmerEffect()
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Box(
+                    modifier = Modifier
+                        .size(width = 100.dp, height = 10.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .showShimmerEffect()
+                )
+            }
+        }
+        Row(
+            modifier = modifier
+                .padding(start = 20.dp)
+        ) {
+            repeat(2) {
+                Column(
+                    modifier = modifier
+                        .padding(top = 16.dp, end = 20.dp)
+                        .wrapContentHeight()
+                ) {
+                    Box(
+                        modifier = landscapeImage
+                            .showShimmerEffect()
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Box(
+                        modifier = Modifier
+                            .size(width = 280.dp, height = 12.dp)
+                            .clip(RoundedCornerShape(5.dp))
+                            .showShimmerEffect()
+                    )
+                }
+            }
+        }
     }
 }
