@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -15,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
@@ -38,7 +38,7 @@ import timber.log.Timber
 
 @Composable
 fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
-    val isLoading by viewModel.isLoading.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
     SwipeRefresh(
         state = swipeRefreshState,
@@ -60,13 +60,19 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
             var episodeList by rememberSaveable {
                 mutableStateOf(listOf<Media>())
             }
-            val episodes by viewModel.newEpisodeStateFlow.collectAsState()
+            val episodes by viewModel.newEpisodeStateFlow.collectAsStateWithLifecycle()
             when (episodes) {
                 is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading episodes")
 
-                is Resource.Success -> episodeList = (episodes as Resource.Success<List<Media>>).data!!
+                is Resource.Success -> {
+                    Timber.tag("##_API_DATA").e("Episode: Success")
+                    episodeList = (episodes as Resource.Success<List<Media>>).data!!
+                }
 
-                is Resource.Error -> Timber.e((episodes as Resource.Error).message)
+                is Resource.Error -> {
+                    Timber.tag("##_API_DATA").e("Episode: Error")
+                    Timber.e((episodes as Resource.Error).message)
+                }
             }
 
             val episodeColumn = if (episodeList.count() % MAX_ITEM_PER_ROW == 0) {
@@ -79,28 +85,40 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
             var channelList by rememberSaveable {
                 mutableStateOf(listOf<Channel>())
             }
-            val channels by viewModel.channelStateFlow.collectAsState()
+            val channels by viewModel.channelStateFlow.collectAsStateWithLifecycle()
             when (channels) {
                 is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading channels")
 
-                is Resource.Success -> channelList =
-                    (channels as Resource.Success<List<Channel>>).data!!
+                is Resource.Success -> {
+                    Timber.tag("##_API_DATA").e("Channel: Success")
+                    channelList =
+                        (channels as Resource.Success<List<Channel>>).data!!
+                }
 
-                is Resource.Error -> Timber.e((channels as Resource.Error).message)
+                is Resource.Error -> {
+                    Timber.tag("##_API_DATA").e("Channel: Error")
+                    Timber.e((channels as Resource.Error).message)
+                }
             }
 
             // fetching category data
             var categoryList by rememberSaveable {
                 mutableStateOf(listOf<Category>())
             }
-            val categories by viewModel.categoryStateFlow.collectAsState()
+            val categories by viewModel.categoryStateFlow.collectAsStateWithLifecycle()
             when (categories) {
                 is Resource.Loading -> Timber.tag("##_API_DATA").e("Loading categories")
 
-                is Resource.Success -> categoryList =
-                    (categories as Resource.Success<List<Category>>).data!!
+                is Resource.Success -> {
+                    Timber.tag("##_API_DATA").e("Category: Success")
+                    categoryList =
+                        (categories as Resource.Success<List<Category>>).data!!
+                }
 
-                is Resource.Error -> Timber.e((categories as Resource.Error).message)
+                is Resource.Error -> {
+                    Timber.tag("##_API_DATA").e("Category: Error")
+                    Timber.e((categories as Resource.Error).message)
+                }
             }
 
             LazyColumn(
