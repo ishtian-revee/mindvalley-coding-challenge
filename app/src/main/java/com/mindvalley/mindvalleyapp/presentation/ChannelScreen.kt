@@ -27,6 +27,7 @@ import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.components.Category
 import com.mindvalley.mindvalleyapp.presentation.components.Channel
 import com.mindvalley.mindvalleyapp.presentation.components.NewEpisode
+import com.mindvalley.mindvalleyapp.presentation.components.NewEpisodeShimmer
 import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.LightGrey
@@ -114,8 +115,14 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                     )
                 }
 
-                items(episodeColumn) { index ->
-                    NewEpisode(episodes = episodeList, index = index)
+                if (isLoading) {
+                    item {
+                        NewEpisodeShimmer(modifier = modifier)
+                    }
+                } else {
+                    items(episodeColumn) { index ->
+                        NewEpisode(episodes = episodeList, index = index)
+                    }
                 }
 
                 item {

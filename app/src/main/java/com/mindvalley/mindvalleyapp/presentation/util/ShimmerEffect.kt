@@ -13,9 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
+import com.mindvalley.mindvalleyapp.presentation.theme.DarkBlue
+import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 
 fun Modifier.showShimmerEffect(): Modifier = composed {
     var size by remember {
@@ -33,9 +34,9 @@ fun Modifier.showShimmerEffect(): Modifier = composed {
     background(
         brush = Brush.linearGradient(
             colors = listOf(
-                Color(0xFFB8B5B5),
-                Color(0xFF8F8B8B),
-                Color(0xFFB8B5B5)
+                DarkBlue,
+                DarkGrey,
+                DarkBlue
             ),
             start = Offset(startOffsetX, 0f),
             end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
