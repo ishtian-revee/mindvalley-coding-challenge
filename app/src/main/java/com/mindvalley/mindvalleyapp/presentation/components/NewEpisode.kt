@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.mindvalley.mindvalleyapp.R
 import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
@@ -54,7 +56,8 @@ fun NewEpisodeItem(modifier: Modifier, media: Media) {
             modifier = portraitImage.align(Alignment.CenterHorizontally),
             model = media.coverAsset?.url,
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            error = painterResource(R.drawable.ic_mindvalley)
         )
 
         Text(
