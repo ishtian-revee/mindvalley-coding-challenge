@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,11 +29,9 @@ import com.mindvalley.mindvalleyapp.common.Constants.MAX_ITEM_PER_ROW
 import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.LatestMedia
 import com.mindvalley.mindvalleyapp.domain.model.Series
-import com.mindvalley.mindvalleyapp.presentation.theme.DarkGrey
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.presentation.theme.White
-import com.mindvalley.mindvalleyapp.presentation.util.divider
 import com.mindvalley.mindvalleyapp.presentation.util.icon
 import com.mindvalley.mindvalleyapp.presentation.util.landscapeImage
 import com.mindvalley.mindvalleyapp.presentation.util.portraitImage
@@ -110,7 +107,6 @@ fun Channel(modifier: Modifier = Modifier, channel: Channel) {
             }
         }
     }
-    HorizontalDivider(modifier = divider, color = DarkGrey)
 }
 
 @Composable

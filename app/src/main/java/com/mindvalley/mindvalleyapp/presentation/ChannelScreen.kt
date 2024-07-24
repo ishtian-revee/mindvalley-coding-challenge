@@ -25,6 +25,7 @@ import com.mindvalley.mindvalleyapp.domain.model.Category
 import com.mindvalley.mindvalleyapp.domain.model.Channel
 import com.mindvalley.mindvalleyapp.domain.model.Media
 import com.mindvalley.mindvalleyapp.presentation.components.Category
+import com.mindvalley.mindvalleyapp.presentation.components.CategoryShimmer
 import com.mindvalley.mindvalleyapp.presentation.components.Channel
 import com.mindvalley.mindvalleyapp.presentation.components.ChannelShimmer
 import com.mindvalley.mindvalleyapp.presentation.components.NewEpisode
@@ -140,11 +141,8 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                     }
                 }
 
-                items(channelList.size) { index ->
-                    Channel(channel = channelList[index])
-                }
-
                 item {
+                    HorizontalDivider(modifier = divider, color = DarkGrey)
                     Text(
                         modifier = modifier
                             .padding(top = 30.dp, start = 20.dp, end = 20.dp),
@@ -152,7 +150,16 @@ fun ChannelScreen(modifier: Modifier = Modifier, viewModel: ChannelViewModel) {
                         style = Typography.headlineMedium,
                         color = Grey
                     )
-                    Category(categoryList = categoryList)
+                }
+
+                if (isLoading) {
+                    item {
+                        CategoryShimmer(modifier = modifier)
+                    }
+                } else {
+                    item {
+                        Category(categoryList = categoryList)
+                    }
                 }
             }
         }

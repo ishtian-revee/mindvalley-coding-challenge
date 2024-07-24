@@ -2,6 +2,10 @@ package com.mindvalley.mindvalleyapp.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +25,7 @@ import com.mindvalley.mindvalleyapp.domain.model.Category
 import com.mindvalley.mindvalleyapp.presentation.theme.Grey
 import com.mindvalley.mindvalleyapp.presentation.theme.Typography
 import com.mindvalley.mindvalleyapp.presentation.theme.White
+import com.mindvalley.mindvalleyapp.presentation.util.showShimmerEffect
 
 @Composable
 fun Category(categoryList: List<Category>) {
@@ -52,5 +57,33 @@ fun CategoryItem(category: Category) {
             style = Typography.titleLarge,
             color = White
         )
+    }
+}
+
+@Composable
+fun CategoryShimmer(modifier: Modifier) {
+    val itemSize: Dp = (LocalConfiguration.current.screenWidthDp.dp / MAX_CATEGORY_COLUMN_COUNT)
+    Column(
+        modifier = modifier
+            .padding(top = 16.dp)
+    ) {
+        repeat(2) {
+            Row(
+                modifier = modifier
+                    .padding(top = 8.dp)
+            ) {
+                repeat(2) {
+                    Box(
+                        modifier = Modifier
+                            .size(itemSize, 80.dp)
+                            .padding(8.dp)
+                            .clip(RoundedCornerShape(50.dp))
+                            .background(Grey.copy(alpha = .2f))
+                            .showShimmerEffect()
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
