@@ -19,7 +19,7 @@ interface ChannelDao {
     fun getNewEpisodes(): Flow<List<MediaEntity>>
 
     @Query("DELETE FROM mediaEntity")
-    fun deleteAllEpisodes()
+    suspend fun deleteAllEpisodes()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertChannels(channels: List<ChannelEntity>): Array<Long>
@@ -28,7 +28,7 @@ interface ChannelDao {
     fun getChannels(): Flow<List<ChannelEntity>>
 
     @Query("DELETE FROM channelEntity")
-    fun deleteAllChannels()
+    suspend fun deleteAllChannels()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategories(categories: List<CategoryEntity>): Array<Long>
@@ -37,5 +37,5 @@ interface ChannelDao {
     fun getCategories(): Flow<List<CategoryEntity>>
 
     @Query("DELETE FROM categoryEntity")
-    fun deleteAllCategories()
+    suspend fun deleteAllCategories()
 }
